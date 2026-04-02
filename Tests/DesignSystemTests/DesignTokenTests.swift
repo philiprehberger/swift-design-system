@@ -3,11 +3,13 @@ import XCTest
 
 final class DesignTokenTests: XCTestCase {
     func testColorFromHex() {
-        let color = ColorToken(hex: "#FF5733")
-        XCTAssertNotNil(color)
-        XCTAssertEqual(color?.red, 1.0, accuracy: 0.01)
-        XCTAssertEqual(color?.green, 0.341, accuracy: 0.01)
-        XCTAssertEqual(color?.blue, 0.2, accuracy: 0.01)
+        guard let color = ColorToken(hex: "#FF5733") else {
+            XCTFail("Failed to parse hex color")
+            return
+        }
+        XCTAssertEqual(color.red, 1.0, accuracy: 0.01)
+        XCTAssertEqual(color.green, 0.341, accuracy: 0.01)
+        XCTAssertEqual(color.blue, 0.2, accuracy: 0.01)
     }
 
     func testColorToHex() {
