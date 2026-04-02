@@ -124,6 +124,40 @@ let imported = ds.importTheme(from: jsonData)
 ds.themes.switchTo(imported!.name)
 ```
 
+### Shadows & Borders
+
+```swift
+let theme = Theme(
+    name: "material",
+    shadows: ["card": ShadowToken(color: ColorToken(hex: "#000000")!, radius: 8, yOffset: 4, opacity: 0.2)],
+    borders: ["input": BorderToken(width: 1, color: ColorToken(hex: "#CCCCCC")!)]
+)
+theme.shadow("card")?.radius  // 8
+theme.border("input")?.width  // 1
+```
+
+### Theme Inheritance
+
+```swift
+let base = Theme(name: "base", colors: ["bg": ColorToken(hex: "#FFFFFF")!, "text": ColorToken(hex: "#000000")!])
+let dark = base.extending(Theme(name: "dark", colors: ["bg": ColorToken(hex: "#111111")!]))
+dark.color("bg")?.hex    // "#111111" (overridden)
+dark.color("text")?.hex  // "#000000" (inherited)
+```
+
+### Token Validation
+
+```swift
+let issues = TokenValidator.validate(
+    theme,
+    requiredColors: ["primary", "background"],
+    requiredSpacing: ["sm", "md", "lg"]
+)
+for issue in issues {
+    print("[\(issue.severity)] \(issue.message)")
+}
+```
+
 ### Theme Merging
 
 Extend a base theme with overrides:
@@ -159,6 +193,32 @@ let brand = base.merging(Theme(
 | `.spacing(_:)` | Look up a named spacing token |
 | `.typography(_:)` | Look up a named typography token |
 | `.merging(_:)` | Merge with another theme |
+| `.shadow(_:)` | Look up a shadow token |
+| `.border(_:)` | Look up a border token |
+| `.extending(_:)` | Create child theme with inherited tokens |
+
+### `ShadowToken`
+
+| Property | Description |
+|----------|-------------|
+| `.color` | Shadow color |
+| `.radius` | Blur radius |
+| `.xOffset` / `.yOffset` | Shadow offset |
+| `.opacity` | Shadow opacity (0-1) |
+
+### `BorderToken`
+
+| Property | Description |
+|----------|-------------|
+| `.width` | Border width in points |
+| `.color` | Border color |
+| `.style` | Line style (solid, dashed, dotted) |
+
+### `TokenValidator`
+
+| Method | Description |
+|--------|-------------|
+| `.validate(_:requiredColors:requiredSpacing:requiredTypography:)` | Lint a theme against requirements |
 
 ### `ThemeManager`
 

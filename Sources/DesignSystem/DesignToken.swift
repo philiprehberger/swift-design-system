@@ -75,3 +75,46 @@ public enum FontWeight: String, Sendable, Codable, CaseIterable {
     case heavy
     case black
 }
+
+/// A shadow style definition.
+public struct ShadowToken: Sendable, Codable, Equatable {
+    public let color: ColorToken
+    public let radius: Double
+    public let xOffset: Double
+    public let yOffset: Double
+    public let opacity: Double
+
+    public init(
+        color: ColorToken,
+        radius: Double,
+        xOffset: Double = 0,
+        yOffset: Double = 0,
+        opacity: Double = 1.0
+    ) {
+        self.color = color
+        self.radius = radius
+        self.xOffset = xOffset
+        self.yOffset = yOffset
+        self.opacity = opacity
+    }
+}
+
+/// A border style definition.
+public struct BorderToken: Sendable, Codable, Equatable {
+    public let width: Double
+    public let color: ColorToken
+    public let style: BorderStyle
+
+    public init(width: Double, color: ColorToken, style: BorderStyle = .solid) {
+        self.width = width
+        self.color = color
+        self.style = style
+    }
+}
+
+/// Border line style.
+public enum BorderStyle: String, Sendable, Codable, CaseIterable {
+    case solid
+    case dashed
+    case dotted
+}

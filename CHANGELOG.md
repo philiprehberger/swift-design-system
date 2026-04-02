@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-04-02
+
+### Added
+- `ShadowToken` for shadow style definitions
+- `BorderToken` and `BorderStyle` for border definitions
+- Shadow and border token support in `Theme` (lookup, merging)
+- `Theme.extending(_:)` for theme inheritance
+- `TokenValidator` for linting themes against required tokens
+
+### Fixed
+- Update swift-tools-version from 5.9 to 6.0
+
 ## [0.1.0] - 2026-04-02
 
 ### Added

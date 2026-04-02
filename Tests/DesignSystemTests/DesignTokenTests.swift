@@ -43,4 +43,32 @@ final class DesignTokenTests: XCTestCase {
     func testFontWeightCases() {
         XCTAssertEqual(FontWeight.allCases.count, 9)
     }
+
+    func testShadowToken() {
+        let shadow = ShadowToken(
+            color: ColorToken(red: 0, green: 0, blue: 0),
+            radius: 10,
+            xOffset: 2,
+            yOffset: 4,
+            opacity: 0.5
+        )
+        XCTAssertEqual(shadow.radius, 10)
+        XCTAssertEqual(shadow.xOffset, 2)
+        XCTAssertEqual(shadow.yOffset, 4)
+        XCTAssertEqual(shadow.opacity, 0.5)
+    }
+
+    func testBorderToken() {
+        let border = BorderToken(
+            width: 2,
+            color: ColorToken(hex: "#000000")!,
+            style: .dashed
+        )
+        XCTAssertEqual(border.width, 2)
+        XCTAssertEqual(border.style, .dashed)
+    }
+
+    func testBorderStyleCases() {
+        XCTAssertEqual(BorderStyle.allCases.count, 3)
+    }
 }
